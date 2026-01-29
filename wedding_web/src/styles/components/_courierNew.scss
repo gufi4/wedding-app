@@ -1,0 +1,14 @@
+@use "../helpers/mixins" as *;
+
+$font-name: 'CourierNew';
+$font-path: '../fonts/CourierNew/couriernew';
+
+// Обычные начертания
+@include font-face($font-name, '#{$font-path}', 100, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}Regular', 400, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}bold', 700, normal, swap, 'ttf');
+
+// Italic начертания
+@include font-face($font-name, '#{$font-path}italic', 100, italic, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}italic', 400, italic, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}bolditalic', 700, italic, swap, 'ttf');

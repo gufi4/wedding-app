@@ -1,0 +1,40 @@
+@use "../helpers/mixins" as *;
+
+$font-name: 'BarlowCondensed';
+$font-path: '../fonts/BarlowCondensed/BarlowCondensed';
+
+// Thin (100)
+@include font-face($font-name, '#{$font-path}-Thin', 100, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-ThinItalic', 100, italic, swap, 'ttf');
+
+// ExtraLight (200)
+@include font-face($font-name, '#{$font-path}-ExtraLight', 200, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-ExtraLightItalic', 200, italic, swap, 'ttf');
+
+// Light (300)
+@include font-face($font-name, '#{$font-path}-Light', 300, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-LightItalic', 300, italic, swap, 'ttf');
+
+// Regular (400)
+@include font-face($font-name, '#{$font-path}-Regular', 400, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-Italic', 400, italic, swap, 'ttf');
+
+// Medium (500)
+@include font-face($font-name, '#{$font-path}-Medium', 500, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-MediumItalic', 500, italic, swap, 'ttf');
+
+// SemiBold (600)
+@include font-face($font-name, '#{$font-path}-SemiBold', 600, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-SemiBoldItalic', 600, italic, swap, 'ttf');
+
+// Bold (700)
+@include font-face($font-name, '#{$font-path}-Bold', 700, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-BoldItalic', 700, italic, swap, 'ttf');
+
+// ExtraBold (800)
+@include font-face($font-name, '#{$font-path}-ExtraBold', 800, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-ExtraBoldItalic', 800, italic, swap, 'ttf');
+
+// Black (900)
+@include font-face($font-name, '#{$font-path}-Black', 900, normal, swap, 'ttf');
+@include font-face($font-name, '#{$font-path}-BlackItalic', 900, italic, swap, 'ttf');

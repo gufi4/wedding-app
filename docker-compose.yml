@@ -1,0 +1,73 @@
+services:
+  # Telegram Bot + API
+  wedding-bot:
+    build:
+      context: ./wedding_bot
+      dockerfile: Dockerfile
+    container_name: wedding-bot
+    restart: unless-stopped
+    environment:
+      - API_TOKEN=${BOT_TOKEN}
+      - BRIDE_ID=${BRIDE_ID}
+      - GROOM_ID=${GROOM_ID}
+      - ADMIN_IDS=${ADMIN_IDS}
+      - WEDDING_DATE=${WEDDING_DATE}
+      - WEDDING_TIME=${WEDDING_TIME}
+      - API_HOST=0.0.0.0
+      - API_PORT=8080
+    volumes:
+      - bot-data:/app/data
+    networks:
+      - wedding-network
+
+  # Vue Frontend
+  wedding-web:
+    build:
+      context: ./wedding_web
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+    container_name: wedding-web
+    restart: unless-stopped
+    networks:
+      - wedding-network
+
+  # Nginx Reverse Proxy
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: wedding-nginx
+    restart: unless-stopped
+    depends_on:
+      - wedding-bot
+      - wedding-web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - certbot-webroot:/var/www/certbot
+      - certbot-conf:/etc/letsencrypt
+    networks:
+      - wedding-network
+
+  # Certbot для SSL (автообновление)
+  certbot:
+    image: certbot/certbot:latest
+    container_name: wedding-certbot
+    volumes:
+      - certbot-webroot:/var/www/certbot
+      - certbot-conf:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - wedding-network
+
+networks:
+  wedding-network:
+    driver: bridge
+
+volumes:
+  bot-data:
+  certbot-webroot:
+  certbot-conf:

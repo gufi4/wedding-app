@@ -1,0 +1,22 @@
+@use 'sass:math';
+@use 'vars';
+
+@function rem($pixels, $context: vars.$main-font-size) {
+  @if (math.is-unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (math.is-unitless($context)) {
+    $context: $context * 1rem;
+  }
+
+  @return math.div($pixels, $context) * 1rem;
+}
+
+@function hexToRGB($hex) {
+  @return red($hex), green($hex), blue($hex);
+}
+
+@function rfs($min: 16, $max: 16) {
+  @return clamp(#{$min}px, #{math.div($max, 1440) * 100}vw, #{$max}px);
+}

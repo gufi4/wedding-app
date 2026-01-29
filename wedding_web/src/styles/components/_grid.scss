@@ -1,0 +1,32 @@
+@use "../helpers/media";
+@use "../helpers/functions";
+
+.container {
+  max-width: var(--w-container);
+  margin-inline: auto;
+  background: var(--c-bg-container);
+
+  &--pd {
+    padding-inline: var(--pi-container);
+  }
+
+  &--md-up {
+    max-width: 400px;
+  }
+
+  &--text {
+    max-width: 600px;
+  }
+}
+
+.section {
+  padding: 40px 0;
+
+  @include media.xl-up {
+    padding-top: 70px ;
+  }
+}
+
+.grid {
+  display: grid;
+}

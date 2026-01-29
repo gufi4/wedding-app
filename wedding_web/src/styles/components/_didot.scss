@@ -1,0 +1,10 @@
+@use "../helpers/mixins" as *;
+
+$font-name: 'Didot';
+$font-path: '../fonts/Didot/Didot';
+
+// Обычные начертания
+@include font-face($font-name, '#{$font-path}', 400, normal, swap, 'otf');
+@include font-face($font-name, '#{$font-path}Title', 600, normal, swap, 'otf');
+@include font-face($font-name, '#{$font-path}Bold', 700, normal, swap, 'otf');
+@include font-face($font-name, '#{$font-path}Italic', 400, italic, swap, 'otf');

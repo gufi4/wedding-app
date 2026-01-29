@@ -1,0 +1,97 @@
+@use 'components';
+@use 'sections';
+@use "./helpers/functions";
+
+:root {
+  //fonts
+  --f-courierNew: 'CourierNew';
+  --f-marianna: 'Marianna';
+  --f-didot: 'Didot';
+  --f-barlowCondensed: 'BarlowCondensed';
+
+  --f-base: var(--f-courierNew), sans-serif;
+  --f-headings: var(--f-marianna), sans-serif;
+
+  //colors
+  --c-primary: #7D1C28;
+  --c-primary-hover: color-mix(in srgb, var(--c-primary) 70%, var(--c-grey-00) 30%);
+  --c-secondary: #E3E3E3;
+  --c-secondary-hover: color-mix(in srgb, var(--c-secondary) 70%, var(--c-grey-00) 30%);
+
+  --c-white: #fff;
+  --c-grey-00: #ffffff;
+  --c-grey-10: #f7f7f7;
+  --c-grey-20: #ebebeb;
+  --c-grey-30: #d6d6d6;
+  --c-grey-40: #d9d9d9;
+  --c-grey-50: #bcbcbc;
+  --c-grey-60: #adadad;
+  --c-grey-70: #707070;
+  --c-grey-80: #5c5c5c;
+  --c-grey-90: #474747;
+  --c-grey-100: #4A4A4A;
+  --c-black: #000;
+
+  --c-error: red;
+  --c-success: green;
+
+  --c-bg-container: #fff;
+
+  //linear-gradient
+  --g-footer-gradient: linear-gradient(0.00deg, rgba(11.985220909118652, 33.98936462402344, 63.21875, 1), rgba(22.215103149414062, 56.70985794067383, 102.53125, 1) 100%);
+
+
+  //border-radius
+  --b-radius-xs: 2px;
+  --b-radius-xsm: 5px;
+  --b-radius-sm: 10px;
+  --b-radius: 15px;
+  --b-radius-lg: 20px;
+  --b-radius-xl: 30px;
+
+  //z-indexes
+  --z-under: -1;
+  --z-bottom: 10;
+  --z-middle-bottom: 100;
+  --z-middle: 150;
+  --z-middle-top: 200;
+  --z-top: 5000;
+  --z-top-10: 300;
+  --z-top-20: 400;
+  --z-top-30: 500;
+
+
+  //container settings
+  --w-container: 900px;
+  --pi-container: 10px;
+
+  //btns settings
+  --btn-b-radius: var(--b-radius-sm);
+  --btn-f-size: functions.rem(16);
+  --btn-f-size-sm: functions.rem(14);
+  --btn-padding: 10px 20px;
+  --btn-padding-sm: 6px 12px;
+
+  --input-c-placeholder: var(--c-grey-50);
+  --input-c-text: var(--c-grey-80);
+  --input-c-border: var(--c-grey-60);
+  --input-c-bg: var(--c-grey-00);
+  --input-padding: 10px 20px;
+  --input-padding-sm: 6px 12px;
+  --input-b-radius: var(--b-radius-sm);
+  --input-f-size: functions.rem(16);
+  --input-f-size-sm: functions.rem(14);
+
+  --label-f-size: functions.rem(14);
+  --label-c: var(--c-grey-80);
+
+  // form settings
+  --c-input-border: var(--c-grey-60);
+  --p-input: 10px 15px;
+  --b-radius-input: var(--b-radius-sm);
+
+  // animation curves
+  --animation-curve: cubic-bezier(1, 0, 0, 1);
+  --animation-fade-in-curve: cubic-bezier(.19, 1, .22, 1);
+  --animation-slide-curve: cubic-bezier(.76, .02, .29, .97);
+}

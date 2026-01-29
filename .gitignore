@@ -1,0 +1,46 @@
+# Окружение и секреты
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+wedding_bot/.venv/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Сборка фронтенда
+wedding_web/dist/
+wedding_web/.vite/
+
+# Docker volumes
+postgres-data/
+db_data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# SSL сертификаты (локальные)
+letsencrypt/
+etc-letsencrypt/

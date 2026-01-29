@@ -1,0 +1,7 @@
+@use "../helpers/mixins" as *;
+
+$font-name: 'Marianna';
+$font-path: '../fonts/Marianna/Marianna';
+
+// Обычные начертания
+@include font-face($font-name, '#{$font-path}', 300, normal, swap, 'ttf');
