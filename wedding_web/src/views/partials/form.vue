@@ -43,7 +43,7 @@ async function submitForm() {
     const result = await response.json()
 
     if (result.success) {
-      submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
+      submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш тг бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
       // Очистить форму
       formData.value = { name: '', guest_count: '', comment: '' }
     } else {

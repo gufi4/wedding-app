@@ -113,6 +113,10 @@ const titleText = computed(() =>
   width: 60px;
   height: 60px;
   text-align: center;
+
+  @include media.lg-up {
+    padding: 12px 8px;
+  }
 }
 
 .time-item__text {

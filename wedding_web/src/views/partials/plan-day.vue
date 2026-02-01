@@ -13,6 +13,7 @@ import { planItems } from '@/stores/data-plan-day.ts'
                 :title="item.title"
                 :time="item.time"
                 :desc="item.desc"
+                :isLast="index === planItems.length - 1"
       />
     </div>
   </section>

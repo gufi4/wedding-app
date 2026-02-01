@@ -4,19 +4,20 @@ interface Props {
   time?: string;
   title: string;
   desc?: string;
+  isLast?: boolean;
 }
 
 const props = defineProps<Props>()
 </script>
 
 <template>
-  <div class="plan-item">
+  <div class="plan-item" :class="{ 'plan-item--last': props.isLast }">
     <div class="plan-item__icon">
-      <img class="plan-item__img" :src=props.icon>
+      <img class="plan-item__img" :src=props.icon alt="Иконка {{ props.title }}">
     </div>
     <div class="plan-item__line-wrap">
       <div class="plan-item__line"></div>
-      <div class="plan-item__heart"><img src="../../assets/icon-heart.svg"></div>
+      <div class="plan-item__heart"><img src="../../assets/icon-heart.svg" alt="Иконка сердца"></div>
     </div>
     <div class="plan-item__content">
       <div class="plan-item__heading">
@@ -131,5 +132,11 @@ const props = defineProps<Props>()
   font-size: functions.rfs(14, 20);
   color: var(--c-grey-70);
   text-align: right;
+}
+
+.plan-item--last {
+  .plan-item__time {
+    top: 2px;
+  }
 }
 </style>

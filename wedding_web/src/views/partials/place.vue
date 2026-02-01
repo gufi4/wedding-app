@@ -50,6 +50,7 @@ const openMap = () => {
   border: 1px solid var(--c-black);
   border-radius: var(--b-radius-lg);
   padding: 10px 20px;
+  color: var(--c-black);
 }
 
 </style>
