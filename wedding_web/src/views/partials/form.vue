@@ -30,8 +30,12 @@ async function submitForm() {
   isSubmitting.value = true
 
   try {
+    // Обрезаем имя до первых 2 слов (имя + фамилия)
+    const nameParts = formData.value.name.trim().split(/\s+/)
+    const shortName = nameParts.slice(0, 2).join(' ')
+
     const guestData = {
-      name: formData.value.name.trim(),
+      name: shortName,
       guest_count: guestCount,
       comment: formData.value.comment.trim()
     }
@@ -117,8 +121,8 @@ onMounted(() => {
     </div>
 
     <!-- Если уже отправлял - показываем текст подтверждения -->
-    <div v-if="hasSubmitted" class="presence-form__confirmed">
-      <p class="presence-form__text presence-form__text--padding">
+    <div  class="presence-form__confirmed">
+      <p class="presence-form__text presence-form__text--confirmed">
         Вы уже подтвердили свое присутствие <strong>{{ submittedData?.name }}</strong>
         <br/>
         <br/>
@@ -133,51 +137,51 @@ onMounted(() => {
     </div>
 
     <!-- Если нет - показываем форму с приглашением -->
-    <template v-else>
-      <div class="presence-form__text presence-form__text--padding">
-        <p>Пожалуйста, подтвердите ваше присутствие на нашем празднике до 1 апреля 2026 года
-          любым удобным для вас способом или заполните форму ниже:
-        </p>
-      </div>
+<!--    <template v-else>-->
+<!--      <div class="presence-form__text presence-form__text&#45;&#45;padding">-->
+<!--        <p>Пожалуйста, подтвердите ваше присутствие на нашем празднике до 1 апреля 2026 года-->
+<!--          любым удобным для вас способом или заполните форму ниже:-->
+<!--        </p>-->
+<!--      </div>-->
 
-      <form class="presence-form__form" @submit.prevent="submitForm">
-      <input
-        v-model="formData.name"
-        name="name"
-        type="text"
-        class="presence-form__input"
-        placeholder="Имя и фамилия"
-      >
+<!--      <form class="presence-form__form" @submit.prevent="submitForm">-->
+<!--      <input-->
+<!--        v-model="formData.name"-->
+<!--        name="name"-->
+<!--        type="text"-->
+<!--        class="presence-form__input"-->
+<!--        placeholder="Имя и фамилия"-->
+<!--      >-->
 
-      <input
-        v-model="formData.guest_count"
-        name="guest_count"
-        type="number"
-        class="presence-form__input"
-        placeholder="Кол-во персон"
-      >
+<!--      <input-->
+<!--        v-model="formData.guest_count"-->
+<!--        name="guest_count"-->
+<!--        type="number"-->
+<!--        class="presence-form__input"-->
+<!--        placeholder="Кол-во персон"-->
+<!--      >-->
 
-      <textarea
-        v-model="formData.comment"
-        name="comment"
-        class="presence-form__textarea"
-        placeholder="Оставь свой комментарий"
-      >
-      </textarea>
+<!--      <textarea-->
+<!--        v-model="formData.comment"-->
+<!--        name="comment"-->
+<!--        class="presence-form__textarea"-->
+<!--        placeholder="Оставь свой комментарий"-->
+<!--      >-->
+<!--      </textarea>-->
 
-      <p class="presence-form__text">Если еще остались вопросы напишите их в наш
-        <a href="https://t.me/weddingGA2026_bot" target="_blank">телеграмм</a>
-      </p>
+<!--      <p class="presence-form__text">Если еще остались вопросы напишите их в наш-->
+<!--        <a href="https://t.me/weddingGA2026_bot" target="_blank">телеграмм</a>-->
+<!--      </p>-->
 
-      <div v-if="submitStatus" class="presence-form__status" :class="`presence-form__status--${submitStatus.type}`">
-        {{ submitStatus.message }}
-      </div>
+<!--      <div v-if="submitStatus" class="presence-form__status" :class="`presence-form__status&#45;&#45;${submitStatus.type}`">-->
+<!--        {{ submitStatus.message }}-->
+<!--      </div>-->
 
-      <button class="presence-form__btn-submit" type="submit" :disabled="isSubmitting">
-        {{ isSubmitting ? 'Отправка...' : 'Отправить' }}
-      </button>
-    </form>
-    </template>
+<!--      <button class="presence-form__btn-submit" type="submit" :disabled="isSubmitting">-->
+<!--        {{ isSubmitting ? 'Отправка...' : 'Отправить' }}-->
+<!--      </button>-->
+<!--    </form>-->
+<!--    </template>-->
 
   </section>
 </template>
@@ -213,6 +217,16 @@ onMounted(() => {
   a, strong {
     color: var(--c-primary);
     font-weight: 600;
+  }
+}
+
+.presence-form__text--confirmed {
+  border: 2px solid var(--c-primary);
+  margin-inline: 10px;
+  border-radius: 10px;
+
+  @include media.lg-up {
+    padding: 15px;
   }
 }
 
