@@ -77,10 +77,10 @@ function getGuestWord(count: number | undefined): string {
   const lastTwo = count % 100
   const lastOne = count % 10
 
-  if (lastTwo >= 11 && lastTwo <= 14) return 'человек'
-  if (lastOne === 1) return 'человек'
-  if (lastOne >= 2 && lastOne <= 4) return 'человека'
-  return 'человек'
+  if (lastTwo >= 11 && lastTwo <= 14) return 'человека'
+  if (lastOne === 1) return 'человека'
+  if (lastOne >= 2 && lastOne <= 4) return 'человек'
+  return 'человека'
 }
 
 onMounted(() => {
@@ -108,7 +108,7 @@ onMounted(() => {
       <p class="presence-form__text">
         Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
         <br/>
-        Вас будет: <strong>{{ submittedData?.guest_count }} {{ getGuestWord(submittedData?.guest_count) }}</strong>
+        В количестве: <strong>{{ submittedData?.guest_count }} {{ getGuestWord(submittedData?.guest_count) }}</strong>
       </p>
       <br/>
       <p class="presence-form__text">
@@ -188,6 +188,10 @@ onMounted(() => {
   padding-inline: 20px;
   text-align: center;
   font-size: functions.rfs(16, 24);
+
+  @include media.lg-up {
+    padding-inline: 50px;
+  }
 
   a, strong {
     color: var(--c-primary);
