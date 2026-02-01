@@ -61,7 +61,7 @@ async function submitForm() {
       // Задержка перед скрытием формы (15 секунд)
       setTimeout(() => {
         hasSubmitted.value = true
-      }, 10000)
+      }, 5000)
     } else {
       submitStatus.value = { type: 'error', message: 'Ошибка в отправке. Попробуйте позже' }
     }
@@ -121,7 +121,7 @@ onMounted(() => {
       <p class="presence-form__text">
         Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
         <br/>
-        <template v-if="submittedData?.guest_count === 1">{{ getGuestWord(submittedData?.guest_count) }}</template>
+        <template v-if="submittedData?.guest_count === 1"><strong>{{ getGuestWord(submittedData?.guest_count) }}</strong></template>
         <template v-else>В количестве: <strong>{{ getGuestWord(submittedData?.guest_count) }}</strong></template>
       </p>
       <br/>
