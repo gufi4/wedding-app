@@ -61,7 +61,7 @@ async function submitForm() {
       // Задержка перед скрытием формы (15 секунд)
       setTimeout(() => {
         hasSubmitted.value = true
-      }, 15000)
+      }, 10000)
     } else {
       submitStatus.value = { type: 'error', message: 'Ошибка в отправке. Попробуйте позже' }
     }
