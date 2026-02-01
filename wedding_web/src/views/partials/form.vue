@@ -76,7 +76,7 @@ function getGuestWord(count: number | undefined): string {
   if (!count) return '0 персон'
 
   if (count === 1) {
-    return 'Вы придете одни'
+    return 'одни'
   }
 
   // Словарь числительных
@@ -121,8 +121,8 @@ onMounted(() => {
       <p class="presence-form__text">
         Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
         <br/>
-        <template v-if="submittedData?.guest_count === 1"><strong>{{ getGuestWord(submittedData?.guest_count) }}</strong></template>
-        <template v-else>В количестве: <strong>{{ getGuestWord(submittedData?.guest_count) }}</strong></template>
+        <template v-if="submittedData?.guest_count === 1">Вы сказали что придете, <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
+        <template v-else>Вы сказали что придете, в количестве: <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
       </p>
       <br/>
       <p class="presence-form__text">
