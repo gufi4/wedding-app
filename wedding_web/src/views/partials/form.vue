@@ -121,6 +121,7 @@ onMounted(() => {
       <p class="presence-form__text presence-form__text--padding">
         Вы уже подтвердили свое присутствие <strong>{{ submittedData?.name }}</strong>
         <br/>
+        <br/>
         <template v-if="submittedData?.guest_count === 1">Вы сказали что придете, <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
         <template v-else>Вы сказали что придете, в количестве <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
       </p>
