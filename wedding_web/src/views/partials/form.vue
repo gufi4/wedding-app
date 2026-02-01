@@ -119,7 +119,7 @@ onMounted(() => {
 
     <!-- Если нет - показываем форму с приглашением -->
     <template v-else>
-      <div class="presence-form__text">
+      <div class="presence-form__text presence-form__text--padding">
         <p>Пожалуйста, подтвердите ваше присутствие на нашем празднике до 1 апреля 2026 года
           любым удобным для вас способом или заполните форму ниже:
         </p>
@@ -189,8 +189,10 @@ onMounted(() => {
   text-align: center;
   font-size: functions.rfs(16, 24);
 
-  @include media.lg-up {
-    padding-inline: 50px;
+  &--padding {
+    @include media.lg-up {
+      padding-inline: 50px;
+    }
   }
 
   a, strong {
