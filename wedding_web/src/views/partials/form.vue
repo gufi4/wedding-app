@@ -45,18 +45,23 @@ async function submitForm() {
     const result = await response.json()
 
     if (result.success) {
-      // Сохранить в localStorage
+      // Сохранить в localStorage сразу (чтобы не потерять данные)
       localStorage.setItem('wedding-form-submitted', JSON.stringify({
         name: guestData.name,
         guest_count: guestData.guest_count
       }))
 
-      hasSubmitted.value = true
+      // Сразу сохраняем данные для отображения после задержки
       submittedData.value = { name: guestData.name, guest_count: guestData.guest_count }
 
       submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш тг бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
       // Очистить форму
       formData.value = { name: '', guest_count: '', comment: '' }
+
+      // Задержка перед скрытием формы (15 секунд)
+      setTimeout(() => {
+        hasSubmitted.value = true
+      }, 15000)
     } else {
       submitStatus.value = { type: 'error', message: 'Ошибка в отправке. Попробуйте позже' }
     }
