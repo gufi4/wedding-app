@@ -222,7 +222,7 @@ onMounted(() => {
 
 .presence-form__text--confirmed {
   border: 2px solid var(--c-primary);
-  padding: 10px;
+  padding: 10px 0;
   margin-inline: 10px;
   border-radius: 10px;
 
