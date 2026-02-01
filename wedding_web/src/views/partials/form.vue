@@ -54,7 +54,7 @@ async function submitForm() {
       // Сразу сохраняем данные для отображения после задержки
       submittedData.value = { name: guestData.name, guest_count: guestData.guest_count }
 
-      submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш тг бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
+      submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш телеграмм бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
       // Очистить форму
       formData.value = { name: '', guest_count: '', comment: '' }
 
@@ -112,7 +112,7 @@ onMounted(() => {
       </p>
       <br/>
       <p class="presence-form__text">
-        Если остались вопросы пишите в наш
+        Если остались вопросы, пишите в наш
         <a href="https://t.me/weddingGA2026_bot" target="_blank">телеграмм бот</a>
       </p>
     </div>
