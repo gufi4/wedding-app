@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const formData = ref({
   name: '',
@@ -9,6 +9,8 @@ const formData = ref({
 
 const isSubmitting = ref(false)
 const submitStatus = ref<{ type: 'success' | 'error', message: string } | null>(null)
+const hasSubmitted = ref(false)
+const submittedData = ref<{ name: string; guest_count: number } | null>(null)
 
 async function submitForm() {
   submitStatus.value = null
@@ -43,6 +45,15 @@ async function submitForm() {
     const result = await response.json()
 
     if (result.success) {
+      // Сохранить в localStorage
+      localStorage.setItem('wedding-form-submitted', JSON.stringify({
+        name: guestData.name,
+        guest_count: guestData.guest_count
+      }))
+
+      hasSubmitted.value = true
+      submittedData.value = { name: guestData.name, guest_count: guestData.guest_count }
+
       submitStatus.value = { type: 'success', message: 'Спасибо! Переходите в наш тг бот, чтобы ничего не пропустить! Ждем Вас на нашей свадьбе!' }
       // Очистить форму
       formData.value = { name: '', guest_count: '', comment: '' }
@@ -55,6 +66,30 @@ async function submitForm() {
     isSubmitting.value = false
   }
 }
+
+function getGuestWord(count: number | undefined): string {
+  if (!count) return 'человек'
+  const lastTwo = count % 100
+  const lastOne = count % 10
+
+  if (lastTwo >= 11 && lastTwo <= 14) return 'человек'
+  if (lastOne === 1) return 'человек'
+  if (lastOne >= 2 && lastOne <= 4) return 'человека'
+  return 'человек'
+}
+
+onMounted(() => {
+  const saved = localStorage.getItem('wedding-form-submitted')
+  if (saved) {
+    try {
+      const data = JSON.parse(saved)
+      hasSubmitted.value = true
+      submittedData.value = data
+    } catch {
+      localStorage.removeItem('wedding-form-submitted')
+    }
+  }
+})
 </script>
 
 <template>
@@ -63,13 +98,29 @@ async function submitForm() {
       Присутствие
     </div>
 
-    <div class="presence-form__text">
-      <p>Пожалуйста, подтвердите ваше присутствие на нашем празднике до 1 апреля 2026 года
-        любым удобным для вас способом или заполните форму ниже:
+    <!-- Если уже отправлял - показываем текст подтверждения -->
+    <div v-if="hasSubmitted" class="presence-form__confirmed">
+      <p class="presence-form__text">
+        Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
+        <br/>
+        Вас будет: <strong>{{ submittedData?.guest_count }} {{ getGuestWord(submittedData?.guest_count) }}</strong>
+      </p>
+      <br/>
+      <p class="presence-form__text">
+        Если остались вопросы пишите в наш
+        <a href="https://t.me/weddingGA2026_bot" target="_blank">телеграмм бот</a>
       </p>
     </div>
 
-    <form class="presence-form__form" @submit.prevent="submitForm">
+    <!-- Если нет - показываем форму с приглашением -->
+    <template v-else>
+      <div class="presence-form__text">
+        <p>Пожалуйста, подтвердите ваше присутствие на нашем празднике до 1 апреля 2026 года
+          любым удобным для вас способом или заполните форму ниже:
+        </p>
+      </div>
+
+      <form class="presence-form__form" @submit.prevent="submitForm">
       <input
         v-model="formData.name"
         name="name"
@@ -106,6 +157,7 @@ async function submitForm() {
         {{ isSubmitting ? 'Отправка...' : 'Отправить' }}
       </button>
     </form>
+    </template>
 
   </section>
 </template>
@@ -132,7 +184,7 @@ async function submitForm() {
   text-align: center;
   font-size: functions.rfs(16, 24);
 
-  a {
+  a, strong {
     color: var(--c-primary);
     font-weight: 600;
   }
@@ -150,6 +202,10 @@ async function submitForm() {
   border: 1px solid var(--c-primary);
   border-radius: var(--b-radius-sm);
   padding: 5px 15px;
+
+  @include media.lg-up {
+    padding: 10px 30px 10px 10px;
+  }
 }
 
 .presence-form__textarea {
