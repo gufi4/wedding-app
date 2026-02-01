@@ -119,10 +119,10 @@ onMounted(() => {
     <!-- Если уже отправлял - показываем текст подтверждения -->
     <div v-if="hasSubmitted" class="presence-form__confirmed">
       <p class="presence-form__text">
-        Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
+        Вы уже подтвердили свое присутствие <strong>{{ submittedData?.name }}</strong>
         <br/>
         <template v-if="submittedData?.guest_count === 1">Вы сказали что придете, <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
-        <template v-else>Вы сказали что придете, в количестве: <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
+        <template v-else>Вы сказали что придете, в количестве <strong>{{ getGuestWord(submittedData?.guest_count) }}.</strong></template>
       </p>
       <br/>
       <p class="presence-form__text">
