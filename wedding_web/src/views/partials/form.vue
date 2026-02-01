@@ -73,14 +73,27 @@ async function submitForm() {
 }
 
 function getGuestWord(count: number | undefined): string {
-  if (!count) return 'человек'
-  const lastTwo = count % 100
-  const lastOne = count % 10
+  if (!count) return '0 персон'
 
-  if (lastTwo >= 11 && lastTwo <= 14) return 'человека'
-  if (lastOne === 1) return 'человека'
-  if (lastOne >= 2 && lastOne <= 4) return 'человек'
-  return 'человека'
+  if (count === 1) {
+    return 'Вы придете одни'
+  }
+
+  // Словарь числительных
+  const numberWords: Record<number, string> = {
+    2: 'двух', 3: 'трех', 4: 'четырех', 5: 'пяти',
+    6: 'шести', 7: 'семи', 8: 'восьми', 9: 'девяти', 10: 'десяти',
+    11: 'одиннадцати', 12: 'двенадцати', 13: 'тринадцати', 14: 'четырнадцати',
+    15: 'пятнадцати', 16: 'шестнадцати', 17: 'семнадцати', 18: 'восемнадцати',
+    19: 'девятнадцати', 20: 'двадцати'
+  }
+
+  if (count <= 20) {
+    return `В количестве: ${numberWords[count]} персон`
+  }
+
+  // Для чисел больше 20
+  return `В количестве: ${count} персон`
 }
 
 onMounted(() => {
@@ -108,7 +121,7 @@ onMounted(() => {
       <p class="presence-form__text">
         Вы уже подтвердили свое присутствие:<strong>{{ submittedData?.name }}</strong>
         <br/>
-        В количестве: <strong>{{ submittedData?.guest_count }} {{ getGuestWord(submittedData?.guest_count) }}</strong>
+        <strong>{{ getGuestWord(submittedData?.guest_count) }}</strong>
       </p>
       <br/>
       <p class="presence-form__text">
