@@ -148,9 +148,10 @@ class WeddingBot:
 
             await session.commit()
 
-    async def start_command(self, update, context):
-        """Handle /start command"""
-        user = update.effective_user
+    async def start_command(self, update, context):                                                                          
+      """Handle /start command"""                                                                                          
+      print(f"🔔 Received /start from {update.effective_user.id}", flush=True)                                             
+      user = update.effective_user
         user_id = user.id
 
         # Save or update bot user
