@@ -148,10 +148,10 @@ class WeddingBot:
 
             await session.commit()
 
-    async def start_command(self, update, context):                                                                          
-      """Handle /start command"""                                                                                          
-      print(f"🔔 Received /start from {update.effective_user.id}", flush=True)                                             
-      user = update.effective_user
+    async def start_command(self, update, context):
+        """Handle /start command"""
+        print(f"🔔 Received /start from {update.effective_user.id}", flush=True)
+        user = update.effective_user
         user_id = user.id
 
         # Save or update bot user
@@ -408,22 +408,22 @@ class WeddingBot:
 
         print("✅ Polling is running!")
 
-        # Keep bot running                                                                                                       
-  try:                                                                                                                     
-      while self.running:                                                                                                  
-          await asyncio.sleep(1)                                                                                           
-  except (KeyboardInterrupt, asyncio.CancelledError):                                                                      
-      print("\n⏹️  Stopping bot...", flush=True)                                                                            
-  except (TimedOut, NetworkError) as e:                                                                                    
-      print(f"\n⚠️  Network error: {e}. Polling will auto-reconnect...", flush=True)                                        
-      # Не делаем raise — polling сам переподключится                                                                      
-  except Exception as e:                                                                                                   
-      print(f"\n❌ Unexpected error in run loop: {e}", flush=True)                                                         
-      import traceback                                                                                                     
-      traceback.print_exc()                                                                                                
-      raise                                                                                                                
-  finally:                                                                                                                 
-      await self.shutdown()
+        # Keep bot running
+        try:
+            while self.running:
+                await asyncio.sleep(1)
+        except (KeyboardInterrupt, asyncio.CancelledError):
+            print("\n⏹️ Stopping bot...", flush=True)
+        except (TimedOut, NetworkError) as e:
+            print(f"\n⚠️ Network error: {e}. Polling will auto-reconnect...", flush=True)
+            # Не делаем raise — polling сам переподключится
+        except Exception as e:
+            print(f"\n❌ Unexpected error in run loop: {e}", flush=True)
+            import traceback
+            traceback.print_exc()
+            raise
+        finally:
+            await self.shutdown()
 
     async def shutdown(self):
         """Shutdown the bot and HTTP server"""
@@ -458,10 +458,9 @@ async def main_async():
 
 
 def main():
-    def main():                                                                                                              
-      """Main entry point"""                                
-      print("Starting bot...", flush=True)                                                                                 
-      asyncio.run(main_async())
+    """Main entry point"""
+    print("Starting bot...", flush=True)
+    asyncio.run(main_async())
 
 
 if __name__ == "__main__":
