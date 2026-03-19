@@ -455,19 +455,23 @@ async def main_async():
 
 
 def main():
-    """Main entry point"""
-    print("Starting bot...", flush=True)
-    while True:
-        try:
-            asyncio.run(main_async())
-            break  # Нормальное завершение
-        except (TimedOut, NetworkError) as e:
-            print(f"\n⚠️ Network error: {e}")
-            print("Retrying in 5 seconds...")
-            time.sleep(5)
-        except Exception as e:
-            print(f"\n❌ Error: {e}")
-            raise
+    def main():                                                                                                              
+      """Main entry point"""                                                                                               
+      print("Starting bot...", flush=True)                                                                                 
+      while True:                                                                                                          
+          try:                                                                                                             
+              asyncio.run(main_async())                                                                                    
+              print("✅ Bot stopped normally", flush=True)                                                                 
+              break                                                                                                        
+          except (TimedOut, NetworkError) as e:                                                                            
+              print(f"\n⚠️  Network error: {e}", flush=True)                                                                
+              print("Retrying in 5 seconds...", flush=True)                                                                
+              time.sleep(5)                                                                                                
+          except Exception as e:                                                                                           
+              print(f"\n❌ Error: {e}", flush=True)                                                                        
+              import traceback                                                                                             
+              traceback.print_exc()                                                                                        
+              raise       
 
 
 if __name__ == "__main__":
