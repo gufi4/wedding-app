@@ -2,6 +2,7 @@ import asyncio
 import signal
 import sys
 import io
+import time
 from datetime import datetime
 
 # Fix Windows console encoding for emoji
@@ -13,6 +14,7 @@ if sys.platform == "win32":
 
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters
+from telegram.error import TimedOut, NetworkError
 from config import Config
 from database.database import db
 from database.models import BotUser
@@ -42,8 +44,16 @@ class WeddingBot:
         print("✅ Database initialized!", flush=True)
 
         print("🤖 Creating Telegram application...", flush=True)
-        # Create application
-        self.application = Application.builder().token(Config.BOT_TOKEN).build()
+        # Create application with extended timeouts for network stability
+        self.application = (
+            Application.builder()
+            .token(Config.BOT_TOKEN)
+            .connect_timeout(30.0)      # таймаут подключения
+            .read_timeout(60.0)         # таймаут чтения (long polling)
+            .write_timeout(30.0)        # таймаут записи
+            .pool_timeout(30.0)         # таймаут пула соединений
+            .build()
+        )
         print("✅ Application created!", flush=True)
 
         # Set bot instance for website form handler
@@ -403,6 +413,12 @@ class WeddingBot:
                 await asyncio.sleep(1)
         except (KeyboardInterrupt, asyncio.CancelledError):
             print("\n⏹️ Stopping bot...")
+        except (TimedOut, NetworkError) as e:
+            print(f"\n⚠️ Network error: {e}. Reconnecting...")
+            # Не завершаем процесс — polling автоматически переподключится
+        except Exception as e:
+            print(f"\n❌ Unexpected error in run loop: {e}")
+            raise
         finally:
             await self.shutdown()
 
@@ -441,11 +457,17 @@ async def main_async():
 def main():
     """Main entry point"""
     print("Starting bot...", flush=True)
-    try:
-        # Run bot
-        asyncio.run(main_async())
-    except Exception as e:
-        print(f"\n❌ Error: {e}")
+    while True:
+        try:
+            asyncio.run(main_async())
+            break  # Нормальное завершение
+        except (TimedOut, NetworkError) as e:
+            print(f"\n⚠️ Network error: {e}")
+            print("Retrying in 5 seconds...")
+            time.sleep(5)
+        except Exception as e:
+            print(f"\n❌ Error: {e}")
+            raise
 
 
 if __name__ == "__main__":
