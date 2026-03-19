@@ -407,20 +407,22 @@ class WeddingBot:
 
         print("✅ Polling is running!")
 
-        # Keep bot running
-        try:
-            while self.running:
-                await asyncio.sleep(1)
-        except (KeyboardInterrupt, asyncio.CancelledError):
-            print("\n⏹️ Stopping bot...")
-        except (TimedOut, NetworkError) as e:
-            print(f"\n⚠️ Network error: {e}. Reconnecting...")
-            # Не завершаем процесс — polling автоматически переподключится
-        except Exception as e:
-            print(f"\n❌ Unexpected error in run loop: {e}")
-            raise
-        finally:
-            await self.shutdown()
+        # Keep bot running                                                                                                       
+  try:                                                                                                                     
+      while self.running:                                                                                                  
+          await asyncio.sleep(1)                                                                                           
+  except (KeyboardInterrupt, asyncio.CancelledError):                                                                      
+      print("\n⏹️  Stopping bot...", flush=True)                                                                            
+  except (TimedOut, NetworkError) as e:                                                                                    
+      print(f"\n⚠️  Network error: {e}. Polling will auto-reconnect...", flush=True)                                        
+      # Не делаем raise — polling сам переподключится                                                                      
+  except Exception as e:                                                                                                   
+      print(f"\n❌ Unexpected error in run loop: {e}", flush=True)                                                         
+      import traceback                                                                                                     
+      traceback.print_exc()                                                                                                
+      raise                                                                                                                
+  finally:                                                                                                                 
+      await self.shutdown()
 
     async def shutdown(self):
         """Shutdown the bot and HTTP server"""
@@ -456,22 +458,9 @@ async def main_async():
 
 def main():
     def main():                                                                                                              
-      """Main entry point"""                                                                                               
+      """Main entry point"""                                
       print("Starting bot...", flush=True)                                                                                 
-      while True:                                                                                                          
-          try:                                                                                                             
-              asyncio.run(main_async())                                                                                    
-              print("✅ Bot stopped normally", flush=True)                                                                 
-              break                                                                                                        
-          except (TimedOut, NetworkError) as e:                                                                            
-              print(f"\n⚠️  Network error: {e}", flush=True)                                                                
-              print("Retrying in 5 seconds...", flush=True)                                                                
-              time.sleep(5)                                                                                                
-          except Exception as e:                                                                                           
-              print(f"\n❌ Error: {e}", flush=True)                                                                        
-              import traceback                                                                                             
-              traceback.print_exc()                                                                                        
-              raise       
+      asyncio.run(main_async())
 
 
 if __name__ == "__main__":
